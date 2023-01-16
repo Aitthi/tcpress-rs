@@ -1,5 +1,5 @@
 [package]
-name = "tcpress_rs"
+name = "tcpress-rs"
 version = "0.1.2"
 authors = ["Aitthi Arsa"]
 edition = "2018"
