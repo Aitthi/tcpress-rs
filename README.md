@@ -1,2 +1,2 @@
 # TCPress **Experimental**
-A web framework for javascript runtime example nodejs, bun written in Rust.
+A web framework written in Rust for javascript runtime.
