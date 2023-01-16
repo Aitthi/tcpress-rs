@@ -1,8 +1,13 @@
 [package]
 name = "tcpress-rs"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Aitthi Arsa"]
 edition = "2018"
+description = "A web framework for javascript runtime example nodejs, bun written in Rust."
+categories = ["nodejs", "wasm", "http", "tcp", "bun"]
+keywords = ["nodejs", "rust", "http", "tcp", "rest-api", "wasm", "bun"]
+repository = "https://github.com/Aitthi/tcpress-rs"
+readme = "./README.md"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
