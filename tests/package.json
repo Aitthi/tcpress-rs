@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/node": "^18.11.16"
+  },
+  "dependencies": {
+    "tcpress-rs": "^0.1.5"
   }
 }
