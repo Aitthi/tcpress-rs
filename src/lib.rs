@@ -82,51 +82,71 @@ impl TCPress {
     // methods
     #[wasm_bindgen]
     pub fn get(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.get(path, handler).unwrap();
+        if let Err(e) = self.routes.get(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn post(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.post(path, handler).unwrap();
+        if let Err(e) = self.routes.post(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn put(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.put(path, handler).unwrap();
+        if let Err(e) = self.routes.put(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn delete(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.delete(path, handler).unwrap();
+        if let Err(e) = self.routes.delete(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn patch(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.patch(path, handler).unwrap();
+        if let Err(e) = self.routes.patch(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn head(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.head(path, handler).unwrap();
+        if let Err(e) = self.routes.head(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn options(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.options(path, handler).unwrap();
+        if let Err(e) = self.routes.options(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn trace(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.trace(path, handler).unwrap();
+        if let Err(e) = self.routes.trace(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn connect(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.connect(path, handler).unwrap();
+        if let Err(e) = self.routes.connect(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 
     #[wasm_bindgen]
     pub fn all(&mut self, path: &str, handler: Vec<router::Handler>) {
-        self.routes.all(path, handler).unwrap();
+        if let Err(e) = self.routes.all(path, handler) {
+            wasm_bindgen::throw_str(format!("{}", e).as_str())
+        }
     }
 }
