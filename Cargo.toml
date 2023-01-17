@@ -1,6 +1,6 @@
 [package]
 name = "tcpress-rs"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["Aitthi Arsa"]
 edition = "2018"
 description = "A web framework written in Rust for javascript runtime."
