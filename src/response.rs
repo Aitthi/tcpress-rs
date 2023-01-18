@@ -49,7 +49,7 @@ impl Response {
             "{}\n{}{}\n{}",
             protocol_status,
             headers,
-            format!("Content-Length: {}\n", body.len()),
+            format!("content-length: {}\n", body.len()),
             body
         );
         res
@@ -66,17 +66,7 @@ impl Response {
 
     #[wasm_bindgen]
     pub fn header(&mut self, key: &str, value: &str) -> Response {
-        // uppercase the first letter and uppercase after - and lowercase the rest
-        let key = key
-            .split("-")
-            .map(|s| {
-                let mut s = s.to_lowercase();
-                s.replace_range(..1, &s[..1].to_uppercase());
-                s
-            })
-            .collect::<Vec<String>>()
-            .join("-");
-        self.builder.headers.insert(key, value.to_string());
+        self.builder.headers.insert(key.to_lowercase(), value.to_string());
         self.clone()
     }
 

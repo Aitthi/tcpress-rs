@@ -77,7 +77,7 @@ pub fn http_parser(buf: &mut BytesMut) -> Result<HttpParse, String> {
                 .unwrap_or(0);
         }
         http_request.headers.insert(
-            header.name.to_string(),
+            name,
             String::from_utf8(header.value.to_vec()).unwrap_or("".to_string()),
         );
     }
