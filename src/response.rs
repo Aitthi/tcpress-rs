@@ -27,10 +27,14 @@ pub struct Response {
 }
 
 impl Response {
-    pub fn new(write: js_sys::Function) -> Response {
+    pub fn new(http_version: String, write: js_sys::Function) -> Response {
         Response {
             write,
-            builder: ResponseBuilder::default(),
+            builder: ResponseBuilder {
+                status: 200,
+                headers: AHashMap::new(),
+                version: http_version,
+            }
         }
     }
 

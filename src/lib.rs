@@ -35,7 +35,7 @@ impl TCPress {
         if let Ok(req_http_parser) = http_parser(&mut BytesMut::from(buffer)) {
             if let Some(router_rs) = self.routes.find(&req_http_parser.path, &req_http_parser.method) {
                 let (sender, mut receiver) = unbounded::<u8>();
-                let mut res: JsValue = response::Response::new(write).into();
+                let mut res: JsValue = response::Response::new(req_http_parser.version.clone(), write).into();
                 let mut req: JsValue = request::Request::new(&router_rs, &req_http_parser).into();
                 let next = Closure::wrap(Box::new(move || {
                     sender.unbounded_send(1).unwrap_or(());
@@ -47,7 +47,7 @@ impl TCPress {
                     let _ = handler.call3(&JsValue::NULL, &mut req, &mut res, next.as_ref()).unwrap_or(JsValue::NULL);
                 }
             } else {
-                let mut res = response::Response::new(write);
+                let mut res = response::Response::new(req_http_parser.version, write);
                 res.status(404).json(
                     js_sys::JSON::parse(
                         serde_json::json!({
@@ -61,7 +61,7 @@ impl TCPress {
                 );
             }
         } else {
-            let mut res = response::Response::new(write);
+            let mut res = response::Response::new("HTTP/1.1".to_string(), write);
             res.status(404).json(
                 js_sys::JSON::parse(
                     serde_json::json!({
