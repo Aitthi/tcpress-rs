@@ -64,6 +64,7 @@ pub fn http_parser(buf: &mut BytesMut) -> Result<HttpParse, String> {
     http_request.method = req.method.unwrap_or("GET").to_string();
     http_request.version = match req.version.unwrap_or(0) {
         1 => "HTTP/1.1".to_string(),
+        2 => "HTTP/2.0".to_string(),
         _ => "HTTP/1.0".to_string(),
     };
     let mut content_length: usize = 0;
