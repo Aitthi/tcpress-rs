@@ -26,7 +26,7 @@ process.on('uncaughtException', function (err) {
 });
 console.log('TCP Server is running on port ' + port +'.');
 let  tc = 0
-// Tcpress +BunTCP
+// Tcpress + BunTCP
 Bun.listen({
     hostname: host,
     port: port,
