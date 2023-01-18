@@ -12,7 +12,7 @@ pub struct Request {
     state_params: AHashMap<String, String>,
     state_query: AHashMap<String, String>,
     state_body: RequestBody,
-    state: js_sys::Map,
+    state: AHashMap<String, JsValue>,
 }
 
 impl Request {
@@ -24,7 +24,7 @@ impl Request {
             state_params: router_result.params.clone(),
             state_query: http_parser.query.clone(),
             state_body: RequestBody::new(&http_parser.body),
-            state: js_sys::Map::new(),
+            state: AHashMap::new(),
         }
     }
 }
@@ -33,12 +33,15 @@ impl Request {
 impl Request {
     #[wasm_bindgen]
     pub fn set(&mut self, key: &str, value: JsValue) {
-        self.state.set(&JsValue::from_str(key), &value);
+        self.state.insert(key.to_string(), value);
     }
 
     #[wasm_bindgen]
     pub fn get(&self, key: &str) -> JsValue {
-        self.state.get(&JsValue::from_str(key))
+        match self.state.get(&key.to_string()) {
+            Some(value) => value.into(),
+            None => JsValue::NULL,
+        }
     }
 
     #[wasm_bindgen]

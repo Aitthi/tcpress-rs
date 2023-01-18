@@ -38,7 +38,7 @@ function sv(){
             tc++
             let tm_lable = `lap_${tc}`
             console.time(tm_lable)
-            app.http(data, (res: string)=>{
+            app.http(data, (res: Uint8Array)=>{
                 sock.write(res);
                 console.timeEnd(tm_lable)
             })
