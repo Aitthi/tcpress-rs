@@ -5,15 +5,7 @@ const host = '0.0.0.0';
 let app = new TCPress();
 let sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 // app
-app.get("/", [async (req: Request, res: Response, next: Function) => {
-    req.set("test", "app state 1");
-    res.header("Powered-By", "TCPress")
-    // await sleep(100);
-    next();
-}, async (req: Request, res: Response) => {
-    console.log("state test", req.get("test"));
-    // console.log("headers", req.headers());
-    // console.log("raw_body", req.body().raw_body());
+app.get("/", [async (req: Request, res: Response) => {
     res.status(200).json({
         status: 200,
         message: "Hello World",

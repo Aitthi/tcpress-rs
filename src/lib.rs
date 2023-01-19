@@ -35,16 +35,17 @@ impl TCPress {
         if let Ok(req_http_parser) = http_parser(&mut BytesMut::from(buffer)) {
             if let Some(router_rs) = self.routes.find(&req_http_parser.path, &req_http_parser.method) {
                 let (sender, mut receiver) = unbounded::<u8>();
-                let mut res: JsValue = response::Response::new(req_http_parser.version.clone(), write).into();
-                let mut req: JsValue = request::Request::new(&router_rs, &req_http_parser).into();
+                let res: JsValue = response::Response::new(req_http_parser.version.clone(), write).into();
+                let req: JsValue = request::Request::new(&router_rs, &req_http_parser).into();
                 let next = Closure::wrap(Box::new(move || {
                     sender.unbounded_send(1).unwrap_or(());
                 }) as Box<dyn FnMut()>);
+                
                 for (inx, handler) in router_rs.handlers.into_iter().enumerate() {
                     if inx != 0 {
                         let _ = receiver.next().await;
                     }
-                    let _ = handler.call3(&JsValue::NULL, &mut req, &mut res, next.as_ref()).unwrap_or(JsValue::NULL);
+                    handler.call3(&JsValue::NULL, &req, &res, next.as_ref()).unwrap_or(JsValue::NULL);                   
                 }
             } else {
                 let mut res = response::Response::new(req_http_parser.version, write);
