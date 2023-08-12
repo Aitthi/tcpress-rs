@@ -49,16 +49,9 @@ function sv(){
     server.listen(port, host, () => {
         console.log('TCP Server is running on port ' + port +'.');
     });
-    let  tc = 0
     server.on('connection', (sock) => {
         sock.on('data', (data) => {
-            tc++
-            let tm_lable = `lap_${tc}`
-            console.time(tm_lable)
-            app.http(data, (res: Uint8Array)=>{
-                sock.write(res);
-                console.timeEnd(tm_lable)
-            })
+            app.http(data, (res: Uint8Array)=>sock.write(res))
         });
     });
 }
@@ -94,20 +87,13 @@ process.on('uncaughtException', function (err) {
     console.log(err);
 });
 console.log('TCP Server is running on port ' + port +'.');
-let  tc = 0
 // Tcpress + BunTCP
 Bun.listen({
     hostname: host,
     port: port,
     socket: {
         data(sock, data) {
-            tc++
-            let tm_lable = `lap_${tc}`
-            console.time(tm_lable)
-            app.http(data, (res: Uint8Array) => {
-                sock.write(res);
-                console.timeEnd(tm_lable)
-            })
+            app.http(data, (res: Uint8Array) => sock.write(res))
         }
     }
 });
